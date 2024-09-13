@@ -23,6 +23,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
         return Scaffold(
             body: navigationShell,
             bottomNavigationBar: Container(
+              height: MediaQuery.sizeOf(context).height*.08,
               decoration: BoxDecoration(
                   border: Border(
                       top: BorderSide(
@@ -38,9 +39,24 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   context.read<NavigationBloc>().add(UpdateNavigationIndex(index));
                 },
                 items: [
-                  BottomNavigationBarItem(icon: SvgPicture.asset(MyIcons.home), label: 'Home'),
-                  BottomNavigationBarItem(icon: SvgPicture.asset(MyIcons.search), label: 'Search'),
-                  BottomNavigationBarItem(icon: SvgPicture.asset(MyIcons.bookmark), label: 'Watch list'),
+                  BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      state.index == 0 ? MyIcons.home : MyIcons.homeInactive,
+                    ),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      state.index == 1 ? MyIcons.search : MyIcons.searchInactive,
+                    ),
+                    label: 'Search',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      state.index == 2 ? MyIcons.bookmark : MyIcons.bookmarkInactive,
+                    ),
+                    label: 'Watch list',
+                  ),
                 ],
               ),
             ));

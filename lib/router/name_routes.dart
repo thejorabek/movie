@@ -12,7 +12,7 @@ sealed class Routes {
 
   /// Home
   static const String home = "/home";
-  static const String story = "/story";
+  static const String search = "/search";
 
   /// TV
   static const String tv = "/tv";
