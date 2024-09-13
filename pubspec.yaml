@@ -13,6 +13,14 @@ dependencies:
 
 
   cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.10+1
+  equatable: ^2.0.5
+  go_router: ^14.2.7
+  flutter_bloc: ^8.1.6
+  get_it: ^7.7.0
+  dio: ^5.7.0
+  chuck_interceptor: ^2.1.8
+  hive: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +34,7 @@ flutter:
 
   assets:
     - assets/svg_icons/
+    - assets/svg_images/
 
   fonts:
     - family: Montserrat
@@ -33,3 +42,4 @@ flutter:
         - asset: assets/fonts/Montserrat-Regular.ttf
         - asset: assets/fonts/Montserrat-Italic.ttf
         - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 500
