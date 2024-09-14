@@ -210,7 +210,6 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                             crossAxisCount: 2, // Number of items in each row
                             mainAxisSpacing: 16.0,
                             crossAxisSpacing: 16.0,
-                            childAspectRatio: 0.75, // Adjust the aspect ratio for the circle and text
                           ),
                           itemBuilder: (context, index) {
                             return SizedBox(

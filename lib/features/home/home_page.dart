@@ -43,12 +43,41 @@ final List<Map<String, String>> movies = [
     "image":
         "https://resizing.flixster.com/05F90XUPmyteSngOV7qj5Zd5HfI=/206x305/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p24429_p_v12_bf.jpg", // Tasvir URL'ini almashtiring
   },
+  {
+    "title": "Jurassic World Dominion",
+    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
+  },
+  {
+    "title": "Spider-Man: No Way Home",
+    "image": "https://cdn.marvel.com/content/1x/spider-mannowayhome_lob_crd_03.jpg", // Tasvir URL'ini almashtiring
+  },
+  {
+    "title": "Green Mile",
+    "image":
+        "https://resizing.flixster.com/05F90XUPmyteSngOV7qj5Zd5HfI=/206x305/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p24429_p_v12_bf.jpg", // Tasvir URL'ini almashtiring
+  },
   // Qo'shimcha filmlar
 ];
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       backgroundColor: MyColors.backgroundColor,
       appBar: AppBar(
@@ -163,8 +192,161 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          // MovieGrid(),
-          // CategoryTabs(),
+          SizedBox(height: height * .02),
+          SizedBox(
+            width: width,
+            height: height * .462,
+            child: Column(
+              children: [
+                Container(
+                  child: TabBar(
+                    labelColor: Colors.white,
+                    indicatorColor: MyColors.secondaryColor,
+                    controller: _tabController,
+                    dividerColor: MyColors.backgroundColor,
+                    tabs: [
+                      Tab(text: 'Now playing'),
+                      Tab(text: 'Upcoming'),
+                      Tab(text: 'Top rated'),
+                      Tab(text: 'Popular'),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                        child: GridView.builder(
+                          itemCount: movies.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, // Number of items in each row
+                            crossAxisSpacing: 16.0,
+                            childAspectRatio: .55,
+                          ),
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    child: Image.network(
+                                      movies[index]["image"]!,
+                                      height: 200, // Tasvir balandligi
+                                      width: 150, // Tasvir kengligi
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                        child: GridView.builder(
+                          itemCount: movies.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // Number of items in each row
+                            mainAxisSpacing: 16.0,
+                            crossAxisSpacing: 16.0,
+                          ),
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              child: ClipOval(
+                                child: Image.network(
+                                  movies[index]['imageUrl']!,
+                                  width: 130,
+                                  height: 130,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                        child: GridView.builder(
+                          itemCount: movies.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // Number of items in each row
+                            mainAxisSpacing: 16.0,
+                            crossAxisSpacing: 16.0,
+                          ),
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ClipOval(
+                                    child: Image.network(
+                                      movies[index]['imageUrl']!,
+                                      width: 130,
+                                      height: 130,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Text(
+                                    movies[index]['name']!,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                        child: GridView.builder(
+                          itemCount: movies.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // Number of items in each row
+                            mainAxisSpacing: 16.0,
+                            crossAxisSpacing: 16.0,
+                          ),
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ClipOval(
+                                    child: Image.network(
+                                      movies[index]['imageUrl']!,
+                                      width: 130,
+                                      height: 130,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Text(
+                                    movies[index]['name']!,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
