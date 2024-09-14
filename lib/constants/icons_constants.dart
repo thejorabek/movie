@@ -13,4 +13,5 @@ sealed class MyIcons {
   static const String searchInactive = 'assets/svg_icons/search_inactive.svg';
   static const String star = 'assets/svg_icons/star.svg';
   static const String ticket = 'assets/svg_icons/ticket.svg';
+  static const String divider = 'assets/svg_icons/divider.svg';
 }

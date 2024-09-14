@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/core/connectivity/network_info.dart';
 import 'package:movie/features/bookmark/bookmark_page.dart';
+import 'package:movie/features/detail/detail_page.dart';
 import 'package:movie/features/home/home_page.dart';
 import 'package:movie/features/main/presentation/bloc/main_bloc.dart';
 import 'package:movie/features/main/presentation/pages/main_page.dart';
@@ -53,6 +54,12 @@ final GoRouter router = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/detail',
+      builder: (BuildContext context, GoRouterState state) {
+        return DetailPage();
+      },
     ),
   ],
 );

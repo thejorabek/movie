@@ -18,10 +18,6 @@ class HomePage extends StatefulWidget {
 
 final List<Map<String, String>> movies = [
   {
-    "title": "Jurassic World Dominion",
-    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
-  },
-  {
     "title": "Spider-Man: No Way Home",
     "image": "https://cdn.marvel.com/content/1x/spider-mannowayhome_lob_crd_03.jpg", // Tasvir URL'ini almashtiring
   },
@@ -29,6 +25,10 @@ final List<Map<String, String>> movies = [
     "title": "Green Mile",
     "image":
         "https://resizing.flixster.com/05F90XUPmyteSngOV7qj5Zd5HfI=/206x305/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p24429_p_v12_bf.jpg", // Tasvir URL'ini almashtiring
+  },
+  {
+    "title": "Jurassic World Dominion",
+    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
   },
   {
     "title": "Jurassic World Dominion",
@@ -92,67 +92,72 @@ class _HomePageState extends State<HomePage> {
                 int num = index;
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Stack(
-                    children: [
-                      // Tasvir va nom
-                      Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12.0),
-                            child: Image.network(
-                              movies[index]["image"]!,
-                              height: 200, // Tasvir balandligi
-                              width: 150, // Tasvir kengligi
-                              fit: BoxFit.cover,
+                  child: GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).go(Routes.detail);
+                    },
+                    child: Stack(
+                      children: [
+                        // Tasvir va nom
+                        Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: Image.network(
+                                movies[index]["image"]!,
+                                height: 200, // Tasvir balandligi
+                                width: 150, // Tasvir kengligi
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            movies[index]["title"]!,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                            SizedBox(height: 8),
+                            Text(
+                              movies[index]["title"]!,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                        bottom: -30,
-                        left: 10,
-                        child: Container(
-                          padding: EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Stack(
-                            children: [
-                              CustomPaint(
-                                painter: NumberPainter(stroke: true, num: num + 1), // Ko'k hoshiyali qatlam
-                                child: Text(
-                                  '',
-                                  style: TextStyle(
-                                    fontSize: 120, // Matn o'lchami
-                                    color: MyColors.inactiveIconColor, // Bu qatlamda matnni ko'rinmas qilamiz
-                                    fontWeight: FontWeight.bold,
+                          ],
+                        ),
+                        Positioned(
+                          bottom: -30,
+                          left: 10,
+                          child: Container(
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Stack(
+                              children: [
+                                CustomPaint(
+                                  painter: NumberPainter(stroke: true, num: num + 1), // Ko'k hoshiyali qatlam
+                                  child: Text(
+                                    '',
+                                    style: TextStyle(
+                                      fontSize: 120, // Matn o'lchami
+                                      color: MyColors.inactiveIconColor, // Bu qatlamda matnni ko'rinmas qilamiz
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              CustomPaint(
-                                painter: NumberPainter(stroke: false, num: num + 1), // Kulrang to'ldirilgan qatlam
-                                child: Text(
-                                  '',
-                                  style: TextStyle(
-                                    fontSize: 120, // Matn o'lchami
-                                    color: MyColors.backgroundColor, // Bu qatlamda matnni ko'rinmas qilamiz
-                                    fontWeight: FontWeight.bold,
+                                CustomPaint(
+                                  painter: NumberPainter(stroke: false, num: num + 1), // Kulrang to'ldirilgan qatlam
+                                  child: Text(
+                                    '',
+                                    style: TextStyle(
+                                      fontSize: 120, // Matn o'lchami
+                                      color: MyColors.backgroundColor, // Bu qatlamda matnni ko'rinmas qilamiz
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
