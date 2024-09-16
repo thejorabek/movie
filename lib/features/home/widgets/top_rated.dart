@@ -5,14 +5,13 @@ import 'package:movie/constants/colors.dart';
 import 'package:movie/features/home/home_page.dart';
 import 'package:movie/features/home/widgets/movie_number.dart';
 import 'package:movie/router/app_routes.dart';
+import 'package:movie/services/detail/bloc/detail_bloc.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_bloc.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_event.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_state.dart';
 
 class TopRated extends StatefulWidget {
-  const TopRated({
-    super.key,
-  });
+  TopRated({super.key});
 
   @override
   State<TopRated> createState() => _TopRatedState();
@@ -29,7 +28,7 @@ class _TopRatedState extends State<TopRated> {
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
-    
+
     return BlocBuilder<TopRatedBloc, TopRatedState>(
       builder: (context, state) {
         if (state is TopRatedLoading) {
@@ -47,7 +46,7 @@ class _TopRatedState extends State<TopRated> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).go(Routes.detail);
+                      GoRouter.of(context).go('/detail/${state.topRated.results[index].id}');
                     },
                     child: Stack(
                       children: [

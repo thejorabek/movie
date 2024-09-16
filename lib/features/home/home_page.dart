@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         children: [
           const SearchBarWidget(),
           SizedBox(height: MediaQuery.sizeOf(context).height * .03),
-          const TopRated(),
+          TopRated(),
           SizedBox(height: height * .02),
           TabBarWidget(width: width, height: height, tabController: tabController)
         ],

@@ -54,9 +54,10 @@ final GoRouter router = GoRouter(
       ],
     ),
     GoRoute(
-      path: '/detail',
+      path: '/detail/:id',
       builder: (BuildContext context, GoRouterState state) {
-        return DetailPage();
+        final movieId = int.parse(state.pathParameters['id']!);
+        return DetailPage(movieId: movieId);
       },
     ),
   ],

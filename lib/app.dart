@@ -4,6 +4,8 @@ import 'package:movie/features/home/home_page.dart';
 import 'package:movie/features/home/widgets/tabbar_view.dart';
 import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_bloc.dart';
 import 'package:movie/router/app_routes.dart';
+import 'package:movie/services/detail/bloc/detail_bloc.dart';
+import 'package:movie/services/detail/detail_service.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_bloc.dart';
 import 'package:movie/services/now_playing/now_playing_service.dart';
 import 'package:movie/services/popular/bloc/popular_bloc.dart';
@@ -34,6 +36,7 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => PopularBloc(apiService: PopularService()),
           ),
+          BlocProvider(create: (context) => MovieBloc(movieService: MovieService())),
         ],
         child: MaterialApp.router(
           theme: ThemeData(

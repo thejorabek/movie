@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/constants/colors.dart';
@@ -12,9 +13,15 @@ import 'package:movie/core/widgets/infos/ticket_widget.dart';
 import 'package:movie/core/widgets/infos/year_widget.dart';
 import 'package:movie/features/detail/widgets/glass_container.dart';
 import 'package:movie/router/app_routes.dart';
+import 'package:movie/services/detail/bloc/detail_bloc.dart';
+import 'package:movie/services/detail/bloc/detail_event.dart';
+import 'package:movie/services/detail/bloc/edtail_state.dart';
+import 'package:movie/services/detail/detail_service.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key});
+  final int movieId;
+
+  const DetailPage({super.key, required this.movieId});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -57,188 +64,198 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    print(widget.movieId);
     double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
-    return Scaffold(
-        backgroundColor: MyColors.backgroundColor,
-        appBar: CustomAppBar(
-          icon: Icon(Icons.bookmark_border_rounded, color: Colors.white),
-          title: 'Details',
-          onTap: () {},
-        ),
-        body: Column(children: [
-          SizedBox(
-            width: width,
-            height: height * .39,
-            child: Stack(
-              children: [
-                Container(
-                  height: height * .25,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)), color: Colors.white),
-                  child: ClipRRect(
-                      child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUFTeN5aG8vYL8pr15XNwQ3nZMpGM1LImz6Q&s', fit: BoxFit.cover, height: height, width: width),
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))),
-                ),
-                Positioned(
-                  top: height * .15,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * .07),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12.0),
-                          child: Image.network(
-                            'https://cdn.marvel.com/content/1x/spider-mannowayhome_lob_crd_03.jpg',
-                            height: 200, // Tasvir balandligi
-                            width: 150, // Tasvir kengligi
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        SizedBox(width: MediaQuery.sizeOf(context).width * .03),
-                        Text(
-                          'Spiderman No Way Home',
-                          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                          maxLines: 2,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: height * .2,
-                  left: width * .8,
-                  child: GlassContainer(
-                      child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                    width: width * .13,
-                    height: height * .03,
-                    child: RateWidget(),
-                  )),
-                )
-              ],
+    return BlocProvider(
+        create: (context) => MovieBloc(
+              movieService: context.read<MovieService>(),
+            )..add(FetchMovieDetails(widget.movieId)),
+        child: Scaffold(
+            backgroundColor: MyColors.backgroundColor,
+            appBar: CustomAppBar(
+              icon: Icon(Icons.bookmark_border_rounded, color: Colors.white),
+              title: 'Details',
+              onTap: () {},
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * .07),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    YearWidget(),
-                    SvgPicture.asset(MyIcons.divider),
-                    DurationWidget(),
-                    SvgPicture.asset(MyIcons.divider),
-                    TicketWidget(),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: height * .01),
-          SizedBox(
-            width: width,
-            height: height * .49,
-            child: Column(
-              children: [
-                Container(
-                  child: TabBar(
-                    labelColor: Colors.white,
-                    indicatorColor: MyColors.secondaryColor,
-                    controller: _tabController,
-                    dividerColor: MyColors.backgroundColor,
-                    tabs: [
-                      Tab(text: 'About Movie'),
-                      Tab(text: 'Reviews'),
-                      Tab(text: 'Cast'),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(25),
-                        child: Text(
-                            'From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.',
-                            style: TextStyle(color: Colors.white)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(25),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [CircleAvatar(), SizedBox(height: height * .015), Text('6.3', style: TextStyle(color: MyColors.activeIconColor))],
-                            ),
-                            SizedBox(width: width * .05),
-                            SizedBox(
-                              width: width * .7,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Iqbal Shafiq Rozaan', style: TextStyle(color: Colors.white)),
-                                  SizedBox(height: height * .01),
-                                  const Text('From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government.',
-                                      style: TextStyle(color: Colors.white))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: GridView.builder(
-                          itemCount: castMembers.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, // Number of items in each row
-                            mainAxisSpacing: 16.0,
-                            crossAxisSpacing: 16.0,
+            body: BlocBuilder<MovieBloc, MovieState>(
+              builder: (context, state) {
+                if (state is MovieLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is MovieLoaded) {
+                  return Column(children: [
+                    SizedBox(
+                      width: width,
+                      height: height * .39,
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: height * .25,
+                            decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)), color: Colors.white),
+                            child: ClipRRect(
+                                child: Image.network('https://api.themoviedb.org/3/movie/${state.movie.backdropPath ?? ''}', fit: BoxFit.cover, height: height, width: width),
+                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))),
                           ),
-                          itemBuilder: (context, index) {
-                            return SizedBox(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                          Positioned(
+                            top: height * .15,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: width * .07),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  ClipOval(
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12.0),
                                     child: Image.network(
-                                      castMembers[index]['imageUrl']!,
-                                      width: 130,
-                                      height: 130,
+                                      'https://api.themoviedb.org/3/movie/${state.movie.posterPath ?? ''}',
+                                      height: 200, // Tasvir balandligi
+                                      width: 150, // Tasvir kengligi
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(height: 8.0),
+                                  SizedBox(width: MediaQuery.sizeOf(context).width * .03),
                                   Text(
-                                    castMembers[index]['name']!,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                    state.movie.originalTitle,
+                                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                  )
                                 ],
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          ),
+                          Positioned(
+                            top: height * .2,
+                            left: width * .8,
+                            child: GlassContainer(
+                                child: Container(
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                              width: width * .13,
+                              height: height * .03,
+                              child: RateWidget(),
+                            )),
+                          )
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ]));
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * .07),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              YearWidget(),
+                              SvgPicture.asset(MyIcons.divider),
+                              DurationWidget(),
+                              SvgPicture.asset(MyIcons.divider),
+                              TicketWidget(),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: height * .01),
+                    SizedBox(
+                      width: width,
+                      height: height * .49,
+                      child: Column(
+                        children: [
+                          Container(
+                            child: TabBar(
+                              labelColor: Colors.white,
+                              indicatorColor: MyColors.secondaryColor,
+                              controller: _tabController,
+                              dividerColor: MyColors.backgroundColor,
+                              tabs: [
+                                Tab(text: 'About Movie'),
+                                Tab(text: 'Reviews'),
+                                Tab(text: 'Cast'),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: TabBarView(
+                              controller: _tabController,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(25),
+                                  child: Text(
+                                      'From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.',
+                                      style: TextStyle(color: Colors.white)),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(25),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        children: [CircleAvatar(), SizedBox(height: height * .015), Text('6.3', style: TextStyle(color: MyColors.activeIconColor))],
+                                      ),
+                                      SizedBox(width: width * .05),
+                                      SizedBox(
+                                        width: width * .7,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text('Iqbal Shafiq Rozaan', style: TextStyle(color: Colors.white)),
+                                            SizedBox(height: height * .01),
+                                            const Text(
+                                                'From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government.',
+                                                style: TextStyle(color: Colors.white))
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: GridView.builder(
+                                    itemCount: castMembers.length,
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, // Number of items in each row
+                                      mainAxisSpacing: 16.0,
+                                      crossAxisSpacing: 16.0,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      return SizedBox(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            ClipOval(
+                                              child: Image.network(
+                                                castMembers[index]['imageUrl']!,
+                                                width: 130,
+                                                height: 130,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            SizedBox(height: 8.0),
+                                            Text(
+                                              castMembers[index]['name']!,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]);
+                } else if (state is MovieError) {
+                  return Center(child: Text(state.message));
+                }
+
+                return Container();
+              },
+            )));
   }
 }
-
-
-
-
-
-
-
-
