@@ -93,7 +93,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                             height: height * .25,
                             decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)), color: Colors.white),
                             child: ClipRRect(
-                                child: Image.network('https://api.themoviedb.org/3/movie/${state.movie.backdropPath ?? ''}', fit: BoxFit.cover, height: height, width: width),
+                                child: Image.network('https://api.themoviedb.org/3/movie/${state.movie.id}/$state.movie.backdropPath ?? ' '}', fit: BoxFit.cover, height: height, width: width),
                                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))),
                           ),
                           Positioned(
@@ -130,7 +130,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
                               width: width * .13,
                               height: height * .03,
-                              child: RateWidget(),
+                              child: RateWidget(rate: state.movie.voteAverage),
                             )),
                           )
                         ],
@@ -143,11 +143,11 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              YearWidget(),
+                              YearWidget(year: state.movie.releaseDate.year),
                               SvgPicture.asset(MyIcons.divider),
-                              DurationWidget(),
+                              DurationWidget(duration: state.movie.runtime),
                               SvgPicture.asset(MyIcons.divider),
-                              TicketWidget(),
+                              TicketWidget(ticket: state.movie.genres[0].name),
                             ],
                           ),
                         ],
@@ -179,7 +179,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                 Padding(
                                   padding: const EdgeInsets.all(25),
                                   child: Text(
-                                      'From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.',
+                                      state.movie.overview,
                                       style: TextStyle(color: Colors.white)),
                                 ),
                                 Padding(

@@ -4,9 +4,12 @@ import 'package:movie/constants/colors.dart';
 import 'package:movie/constants/icons_constants.dart';
 
 class DurationWidget extends StatelessWidget {
-  const DurationWidget({
+   DurationWidget({
     super.key,
+    required this.duration
   });
+
+  int duration;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +17,8 @@ class DurationWidget extends StatelessWidget {
     return Row(
       children: [
         SvgPicture.asset(MyIcons.clock),
-        SizedBox(width: width*.02),
-        Text('148 minutes', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
+        SizedBox(width: width * .02),
+        Text('$duration minutes', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
       ],
     );
   }

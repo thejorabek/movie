@@ -4,9 +4,9 @@ import 'package:movie/constants/colors.dart';
 import 'package:movie/constants/icons_constants.dart';
 
 class TicketWidget extends StatelessWidget {
-  const TicketWidget({
-    super.key,
-  });
+  TicketWidget({super.key, required this.ticket});
+
+  String ticket;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class TicketWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(MyIcons.ticket),
         SizedBox(width: width * .02),
-        Text('Ation', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
+        Text('$ticket', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
       ],
     );
   }
