@@ -14,7 +14,7 @@ class NumberPainter extends CustomPainter {
         style: TextStyle(
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w700,
-          fontSize: 135, // Matn o'lchami
+          fontSize: 100, // Matn o'lchami
           foreground: Paint()
             ..style = stroke ? PaintingStyle.stroke : PaintingStyle.fill // Agar stroke bo'lsa hoshiyasi chiziladi
             ..strokeWidth = stroke ? 3 : 0 // Hoshiyaning kengligi (agar stroke bo'lsa)

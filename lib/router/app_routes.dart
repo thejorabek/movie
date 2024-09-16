@@ -7,8 +7,6 @@ import 'package:movie/core/connectivity/network_info.dart';
 import 'package:movie/features/bookmark/bookmark_page.dart';
 import 'package:movie/features/detail/detail_page.dart';
 import 'package:movie/features/home/home_page.dart';
-import 'package:movie/features/main/presentation/bloc/main_bloc.dart';
-import 'package:movie/features/main/presentation/pages/main_page.dart';
 import 'package:movie/features/others/presentation/pages/internet_connection/internet_connection_page.dart';
 import 'package:movie/features/others/presentation/pages/splash/splash_page.dart';
 import 'package:movie/features/others/scaffold_with_navbar/scaffold_with_navbar.dart';

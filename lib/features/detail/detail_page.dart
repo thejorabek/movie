@@ -5,6 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/constants/icons_constants.dart';
+import 'package:movie/core/widgets/appbar/custom_appbar.dart';
+import 'package:movie/core/widgets/infos/duration_widget.dart';
+import 'package:movie/core/widgets/infos/rate_widget.dart';
+import 'package:movie/core/widgets/infos/ticket_widget.dart';
+import 'package:movie/core/widgets/infos/year_widget.dart';
 import 'package:movie/features/detail/widgets/glass_container.dart';
 import 'package:movie/router/app_routes.dart';
 
@@ -56,17 +61,10 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
     double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
         backgroundColor: MyColors.backgroundColor,
-        appBar: AppBar(
-          backgroundColor: MyColors.backgroundColor,
-          leading: IconButton(
-              onPressed: () {
-                GoRouter.of(context).go(Routes.home);
-              },
-              icon: Icon(Icons.arrow_back_ios_rounded),
-              color: Colors.white),
-          title: Text('Detail', style: TextStyle(color: Colors.white)),
-          centerTitle: true,
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.bookmark_outline_outlined, color: Colors.white))],
+        appBar: CustomAppBar(
+          icon: Icon(Icons.bookmark_border_rounded, color: Colors.white),
+          title: 'Details',
+          onTap: () {},
         ),
         body: Column(children: [
           SizedBox(
@@ -115,16 +113,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
                     width: width * .13,
                     height: height * .03,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(MyIcons.star),
-                        Text(
-                          '9.5',
-                          style: TextStyle(color: MyColors.starColor),
-                        )
-                      ],
-                    ),
+                    child: RateWidget(),
                   )),
                 )
               ],
@@ -137,14 +126,11 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SvgPicture.asset(MyIcons.calendar),
-                    Text('2021', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
+                    YearWidget(),
                     SvgPicture.asset(MyIcons.divider),
-                    SvgPicture.asset(MyIcons.clock),
-                    Text('148 minutes', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
+                    DurationWidget(),
                     SvgPicture.asset(MyIcons.divider),
-                    SvgPicture.asset(MyIcons.ticket),
-                    Text('Ation', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
+                    TicketWidget(),
                   ],
                 ),
               ],
@@ -248,3 +234,11 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
         ]));
   }
 }
+
+
+
+
+
+
+
+

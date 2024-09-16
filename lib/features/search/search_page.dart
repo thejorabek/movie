@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie/constants/colors.dart';
+import 'package:movie/core/widgets/appbar/custom_appbar.dart';
+import 'package:movie/core/widgets/infos/duration_widget.dart';
+import 'package:movie/core/widgets/infos/rate_widget.dart';
+import 'package:movie/core/widgets/infos/ticket_widget.dart';
+import 'package:movie/core/widgets/infos/year_widget.dart';
+import 'package:movie/core/widgets/search/global_searchbar/global_searchbar.dart';
+import 'package:movie/features/home/home_page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -11,10 +18,63 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       backgroundColor: MyColors.backgroundColor,
-      appBar: AppBar(title: Text('Search'), backgroundColor: MyColors.backgroundColor),
-      body: Center(child: Text('Search Page')),
+      appBar: CustomAppBar(icon: Icon(Icons.info_outline_rounded, color: Colors.white), title: 'Search', onTap: () {}),
+      body: Column(
+        children: [
+          SizedBox(height: height * .02),
+          GlobalSearch(),
+          SizedBox(height: height * .02),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+                width: width,
+                height: height * .2,
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0),
+                      child: Image.network(
+                        movies[0]["image"]!,
+                        height: 200, // Tasvir balandligi
+                        width: 150, // Tasvir kengligi
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(width: width * .01),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width*.02),
+                      child: SizedBox(
+                        width: width*.5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Spidermanfdsfsdfsdfsfdfsf',
+                              style: TextStyle(color: Colors.white, fontSize: 18),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: height*.02),
+                            RateWidget(),
+                            SizedBox(height: height*.01),
+                            TicketWidget(),
+                            SizedBox(height: height*.01),
+                            YearWidget(),
+                            SizedBox(height: height*.01),
+                            DurationWidget()
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                )),
+          )
+        ],
+      ),
     );
   }
 }
