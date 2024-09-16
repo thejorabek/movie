@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/features/home/home_page.dart';
+import 'package:movie/features/home/widgets/top_rated.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_bloc.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_state.dart';
+import 'package:movie/services/top_rated/bloc/top_rated_bloc.dart';
+import 'package:movie/services/top_rated/bloc/top_rated_state.dart';
 import 'package:movie/services/upcoming/bloc/upcoming_bloc.dart';
 import 'package:movie/services/upcoming/bloc/upcoming_state.dart';
 
@@ -126,42 +129,46 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                         return Container();
                       },
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                  child: GridView.builder(
-                    itemCount: movies.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Number of items in each row
-                      mainAxisSpacing: 16.0,
-                      crossAxisSpacing: 16.0,
-                    ),
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ClipOval(
-                              child: Image.network(
-                                movies[index]['imageUrl']!,
-                                width: 130,
-                                height: 130,
-                                fit: BoxFit.cover,
+                BlocBuilder<TopRatedBloc, TopRatedState>(
+                  builder: (context, state) {
+                    if (state is TopRatedLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is TopRatedLoaded) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                        child: GridView.builder(
+                          itemCount: movies.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, // Number of items in each row
+                            mainAxisSpacing: 160.0,
+                            crossAxisSpacing: 16.0,
+                          ),
+                          itemBuilder: (context, index) {
+                            final item = state.topRated.results[index];
+                            return SizedBox(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    child: Image.network(
+                                      item.fullPosterUrl,
+                                      height: 200, // Tasvir balandligi
+                                      width: 130, // Tasvir kengligi
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              movies[index]['name']!,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                            );
+                          },
                         ),
                       );
-                    },
-                  ),
+                    } else if (state is TopRatedError) {
+                      return Center(child: Text(state.message));
+                    }
+                    return Container();
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
