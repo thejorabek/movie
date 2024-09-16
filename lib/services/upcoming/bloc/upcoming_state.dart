@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:movie/core/models/now_playing.dart';
+import 'package:movie/core/models/top_rated.dart';
 
 abstract class UpcomingState extends Equatable {
   const UpcomingState();
@@ -13,7 +14,7 @@ class UpcomingInitial extends UpcomingState {}
 class UpcomingLoading extends UpcomingState {}
 
 class UpcomingLoaded extends UpcomingState {
-  final NowPlaying nowPlaying;
+  final TopRatedModel nowPlaying;
 
   const UpcomingLoaded(this.nowPlaying);
 

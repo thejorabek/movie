@@ -6,6 +6,8 @@ import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_bloc.
 import 'package:movie/router/app_routes.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_bloc.dart';
 import 'package:movie/services/now_playing/now_playing_service.dart';
+import 'package:movie/services/popular/bloc/popular_bloc.dart';
+import 'package:movie/services/popular/popular_service.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_bloc.dart';
 import 'package:movie/services/top_rated/top_rated_service.dart';
 import 'package:movie/services/upcoming/bloc/upcoming_bloc.dart';
@@ -16,7 +18,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
-    
         providers: [
           BlocProvider(
             create: (context) => NavigationBloc(),
@@ -29,6 +30,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => UpcomingBloc(apiService: UpcomingService()),
+          ),
+          BlocProvider(
+            create: (context) => PopularBloc(apiService: PopularService()),
           ),
         ],
         child: MaterialApp.router(

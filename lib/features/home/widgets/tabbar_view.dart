@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/features/home/home_page.dart';
-import 'package:movie/features/home/widgets/top_rated.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_bloc.dart';
+import 'package:movie/services/now_playing/bloc/now_playing_event.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_state.dart';
+import 'package:movie/services/popular/bloc/popular_bloc.dart';
+import 'package:movie/services/popular/bloc/popular_event.dart';
+import 'package:movie/services/popular/bloc/popular_state.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_bloc.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_state.dart';
 import 'package:movie/services/upcoming/bloc/upcoming_bloc.dart';
+import 'package:movie/services/upcoming/bloc/upcoming_event.dart';
 import 'package:movie/services/upcoming/bloc/upcoming_state.dart';
 
 class TabBarWidget extends StatefulWidget {
@@ -27,6 +31,14 @@ class TabBarWidget extends StatefulWidget {
 }
 
 class _TabBarWidgetState extends State<TabBarWidget> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<NowPlayingBloc>(context).add(FetchNowPlaying());
+    BlocProvider.of<UpcomingBloc>(context).add(FetchUpcoming());
+    BlocProvider.of<PopularBloc>(context).add(FetchPopular());
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
@@ -59,28 +71,27 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                     if (state is NowPlayingLoading) {
                       return Center(child: CircularProgressIndicator());
                     } else if (state is NowPlayingLoaded) {
-                      int itemCount = state.nowPlaying.results.length;
                       return Padding(
                         padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
                         child: GridView.builder(
-                          itemCount: itemCount,
+                          itemCount: state.nowPlaying.results.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3, // Number of items in each row
-                            crossAxisSpacing: 16.0,
-                            childAspectRatio: .55,
+                            mainAxisSpacing: height * .1,
+                            crossAxisSpacing: width * .03,
                           ),
                           itemBuilder: (context, index) {
-                            final item = state.nowPlaying.results;
-
+                            final item = state.nowPlaying.results[index];
                             return SizedBox(
                               child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(12.0),
                                     child: Image.network(
-                                      item[index].fullPosterUrl,
-                                      height: 200, // Tasvir balandligi
-                                      width: 150, // Tasvir kengligi
+                                      item.fullPosterUrl,
+                                      height: height * .2, // Tasvir balandligi
+                                      width: width * .3, // Tasvir kengligi
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -107,18 +118,19 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                           return GridView.builder(
                             itemCount: itemCount,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, // Number of items in each row
-                              mainAxisSpacing: 16.0,
-                              crossAxisSpacing: 16.0,
+                              crossAxisCount: 3, // Number of items in each row
+                              mainAxisSpacing: height * .1,
+                              crossAxisSpacing: width * .03,
                             ),
                             itemBuilder: (context, index) {
-                              final item = state.nowPlaying.results;
+                              final item = state.nowPlaying.results[index];
                               return SizedBox(
-                                child: ClipOval(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
                                   child: Image.network(
-                                    movies[index]['imageUrl']!,
-                                    width: 130,
-                                    height: 130,
+                                    item.fullPosterUrl,
+                                    height: height * .2, // Tasvir balandligi
+                                    width: width * .3, // Tasvir kengligi
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -140,8 +152,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                           itemCount: movies.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3, // Number of items in each row
-                            mainAxisSpacing: 160.0,
-                            crossAxisSpacing: 16.0,
+                            mainAxisSpacing: height * .1,
+                            crossAxisSpacing: width * .03,
                           ),
                           itemBuilder: (context, index) {
                             final item = state.topRated.results[index];
@@ -153,8 +165,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                     borderRadius: BorderRadius.circular(12.0),
                                     child: Image.network(
                                       item.fullPosterUrl,
-                                      height: 200, // Tasvir balandligi
-                                      width: 130, // Tasvir kengligi
+                                      height: height * .2, // Tasvir balandligi
+                                      width: width * .3, // Tasvir kengligi
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -170,43 +182,47 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                     return Container();
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                  child: GridView.builder(
-                    itemCount: movies.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Number of items in each row
-                      mainAxisSpacing: 16.0,
-                      crossAxisSpacing: 16.0,
-                    ),
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ClipOval(
-                              child: Image.network(
-                                movies[index]['imageUrl']!,
-                                width: 130,
-                                height: 130,
-                                fit: BoxFit.cover,
+                BlocBuilder<PopularBloc, PopularState>(
+                  builder: (context, state) {
+                    if (state is PopularLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is PopularLoaded) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                        child: GridView.builder(
+                          itemCount: movies.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, // Number of items in each row
+                            mainAxisSpacing: height * .1,
+                            crossAxisSpacing: width * .03,
+                          ),
+                          itemBuilder: (context, index) {
+                            final item = state.popular.results[index];
+                            return SizedBox(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    child: Image.network(
+                                      item.fullPosterUrl,
+                                      height: height * .2, // Tasvir balandligi
+                                      width: width * .3, // Tasvir kengligi
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              movies[index]['name']!,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                            );
+                          },
                         ),
                       );
-                    },
-                  ),
-                ),
+                    } else if (state is PopularError) {
+                      return Center(child: Text(state.props.toString()));
+                    }
+                    return Container();
+                  },
+                )
               ],
             ),
           ),
