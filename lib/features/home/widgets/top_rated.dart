@@ -33,7 +33,7 @@ class _TopRatedState extends State<TopRated> {
     return BlocBuilder<TopRatedBloc, TopRatedState>(
       builder: (context, state) {
         if (state is TopRatedLoading) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: SizedBox(height: 200));
         } else if (state is TopRatedLoaded) {
           return Container(
             height: 250, // Bo'yi
