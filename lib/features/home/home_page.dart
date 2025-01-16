@@ -86,7 +86,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           SizedBox(height: MediaQuery.sizeOf(context).height * .03),
           const TopRated(),
           SizedBox(height: height * .02),
-          TabBarWidget(width: width, height: height, tabController: tabController)
+          SizedBox(
+            height: height * .39,
+            child: TabBarWidget(width: width, height: height, tabController: tabController))
         ],
       ),
     );

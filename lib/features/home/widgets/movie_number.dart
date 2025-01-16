@@ -14,11 +14,11 @@ class NumberPainter extends CustomPainter {
         style: TextStyle(
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w700,
-          fontSize: 100, // Matn o'lchami
+          fontSize: 100,
           foreground: Paint()
-            ..style = stroke ? PaintingStyle.stroke : PaintingStyle.fill // Agar stroke bo'lsa hoshiyasi chiziladi
-            ..strokeWidth = stroke ? 3 : 0 // Hoshiyaning kengligi (agar stroke bo'lsa)
-            ..color = stroke ? MyColors.activeIconColor : MyColors.backgroundColor, // Hoshiyaning rangi ko'k, ichki rangi esa kulrang
+            ..style = stroke ? PaintingStyle.stroke : PaintingStyle.fill
+            ..strokeWidth = stroke ? 3 : 0 
+            ..color = stroke ? MyColors.activeIconColor : MyColors.backgroundColor,
         ),
       ),
       textDirection: TextDirection.ltr,

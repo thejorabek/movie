@@ -244,7 +244,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                     ),
                   ]);
                 } else if (state is MovieError) {
-                  return Center(child: Text(state.message));
+                  return Center(child: Text(state.message,style: const TextStyle(color: Colors.white),));
                 }
 
                 return Container();

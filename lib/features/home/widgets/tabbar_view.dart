@@ -102,7 +102,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                         ),
                       );
                     } else if (state is NowPlayingError) {
-                      return Center(child: Text(state.message));
+                      return Center(child: Text(state.message,style: const TextStyle(color: Colors.white),));
                     }
                     return Container();
                   },

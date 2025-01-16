@@ -23,7 +23,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
         return Scaffold(
             body: navigationShell,
             bottomNavigationBar: Container(
-              height: MediaQuery.sizeOf(context).height*.08,
+              height: MediaQuery.sizeOf(context).height*.1,
               decoration: const BoxDecoration(
                   border: Border(
                       top: BorderSide(
