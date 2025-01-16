@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/constants/icons_constants.dart';
 
+// ignore: must_be_immutable
 class RateWidget extends StatelessWidget {
   RateWidget({super.key, required this.rate});
   double rate;
@@ -15,7 +16,7 @@ class RateWidget extends StatelessWidget {
         SizedBox(width: width * .01),
         Text(
           '$rate',
-          style: TextStyle(color: MyColors.starColor),
+          style: const TextStyle(color: MyColors.starColor),
         )
       ],
     );

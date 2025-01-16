@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie/features/home/home_page.dart';
-import 'package:movie/features/home/widgets/tabbar_view.dart';
 import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_bloc.dart';
 import 'package:movie/router/app_routes.dart';
 import 'package:movie/services/detail/bloc/detail_bloc.dart';

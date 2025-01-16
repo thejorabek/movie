@@ -22,11 +22,11 @@ class _SearchPageState extends State<SearchPage> {
     double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       backgroundColor: MyColors.backgroundColor,
-      appBar: CustomAppBar(icon: Icon(Icons.info_outline_rounded, color: Colors.white), title: 'Search', onTap: () {}),
+      appBar: CustomAppBar(icon: const Icon(Icons.info_outline_rounded, color: Colors.white), title: 'Search', onTap: () {}),
       body: Column(
         children: [
           SizedBox(height: height * .02),
-          GlobalSearch(),
+          const GlobalSearch(),
           SizedBox(height: height * .02),
           Padding(
             padding: const EdgeInsets.all(20),
@@ -52,20 +52,20 @@ class _SearchPageState extends State<SearchPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Spidermanfdsfsdfsdfsfdfsf',
                               style: TextStyle(color: Colors.white, fontSize: 18),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(height: height*.02),
-                            // RateWidget(),
-                            // SizedBox(height: height*.01),
-                            // TicketWidget(),
-                            // SizedBox(height: height*.01),
-                            // YearWidget(),
-                            // SizedBox(height: height*.01),
-                            // DurationWidget()
+                            RateWidget(rate: 3.4,),
+                            SizedBox(height: height*.01),
+                            TicketWidget(ticket: 'Ticket',),
+                            SizedBox(height: height*.01),
+                            YearWidget(year: 1976,),
+                            SizedBox(height: height*.01),
+                            DurationWidget(duration: 143,)
                           ],
                         ),
                       ),

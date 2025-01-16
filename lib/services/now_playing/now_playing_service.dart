@@ -1,9 +1,6 @@
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:movie/core/models/now_playing.dart';
-import 'dart:convert';
-
-import 'package:movie/core/models/top_rated.dart';
-
 class NowPlayingService {
   final String baseUrl = 'https://api.themoviedb.org/3/movie'; // Replace with actual API URL
   final String apiKey = '46f67d100a844a5a01bcbbe10ec06129'; // Replace with your API key

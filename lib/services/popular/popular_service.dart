@@ -1,6 +1,5 @@
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:movie/core/models/top_rated.dart';
 
 class PopularService {

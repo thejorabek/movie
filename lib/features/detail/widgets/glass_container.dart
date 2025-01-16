@@ -17,12 +17,14 @@ class GlassContainer extends StatelessWidget {
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0),
             ),
           ),
           // The glass effect container
           Container(
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: Colors.white.withOpacity(0.1), // Slightly opaque white background
               borderRadius: BorderRadius.circular(15),
             ),

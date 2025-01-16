@@ -12,6 +12,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(create: (context) => MovieService(), child: App());
+    return RepositoryProvider(create: (context) => MovieService(), child: const App());
   }
 }

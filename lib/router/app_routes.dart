@@ -1,14 +1,11 @@
 import 'package:chuck_interceptor/chuck.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/core/connectivity/network_info.dart';
 import 'package:movie/features/bookmark/bookmark_page.dart';
 import 'package:movie/features/detail/detail_page.dart';
 import 'package:movie/features/home/home_page.dart';
-import 'package:movie/features/others/presentation/pages/internet_connection/internet_connection_page.dart';
-import 'package:movie/features/others/presentation/pages/splash/splash_page.dart';
 import 'package:movie/features/others/scaffold_with_navbar/scaffold_with_navbar.dart';
 import 'package:movie/features/search/search_page.dart';
 
@@ -31,7 +28,7 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/home',
-              builder: (context, state) => HomePage(),
+              builder: (context, state) => const HomePage(),
             ),
           ],
         ),
@@ -39,7 +36,7 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/search',
-              builder: (context, state) => SearchPage(),
+              builder: (context, state) => const SearchPage(),
             ),
           ],
         ),
@@ -47,7 +44,7 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/watchlist',
-              builder: (context, state) => BookmarkPage(),
+              builder: (context, state) => const BookmarkPage(),
             ),
           ],
         ),

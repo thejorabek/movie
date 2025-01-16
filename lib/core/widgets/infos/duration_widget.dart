@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/constants/icons_constants.dart';
 
+// ignore: must_be_immutable
 class DurationWidget extends StatelessWidget {
    DurationWidget({
     super.key,
@@ -18,7 +19,7 @@ class DurationWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(MyIcons.clock),
         SizedBox(width: width * .02),
-        Text('$duration minutes', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
+        Text('$duration minutes', style: const TextStyle(color: MyColors.inactiveIconColor, fontSize: 16)),
       ],
     );
   }

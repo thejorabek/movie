@@ -9,6 +9,7 @@ import 'package:movie/services/popular/bloc/popular_bloc.dart';
 import 'package:movie/services/popular/bloc/popular_event.dart';
 import 'package:movie/services/popular/bloc/popular_state.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_bloc.dart';
+import 'package:movie/services/top_rated/bloc/top_rated_event.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_state.dart';
 import 'package:movie/services/upcoming/bloc/upcoming_bloc.dart';
 import 'package:movie/services/upcoming/bloc/upcoming_event.dart';
@@ -36,6 +37,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
     super.initState();
     BlocProvider.of<NowPlayingBloc>(context).add(FetchNowPlaying());
     BlocProvider.of<UpcomingBloc>(context).add(FetchUpcoming());
+    BlocProvider.of<TopRatedBloc>(context).add(FetchTopRated());
     BlocProvider.of<PopularBloc>(context).add(FetchPopular());
   }
 
@@ -48,19 +50,17 @@ class _TabBarWidgetState extends State<TabBarWidget> {
       height: widget.height * .462,
       child: Column(
         children: [
-          Container(
-            child: TabBar(
-              labelColor: Colors.white,
-              indicatorColor: MyColors.secondaryColor,
-              controller: widget._tabController,
-              dividerColor: MyColors.backgroundColor,
-              tabs: [
-                Tab(text: 'Now playing'),
-                Tab(text: 'Upcoming'),
-                Tab(text: 'Top rated'),
-                Tab(text: 'Popular'),
-              ],
-            ),
+          TabBar(
+            labelColor: Colors.white,
+            indicatorColor: MyColors.secondaryColor,
+            controller: widget._tabController,
+            dividerColor: MyColors.backgroundColor,
+            tabs: const [
+              Tab(text: 'Now playing'),
+              Tab(text: 'Upcoming'),
+              Tab(text: 'Top rated'),
+              Tab(text: 'Popular'),
+            ],
           ),
           Expanded(
             child: TabBarView(
@@ -69,7 +69,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                 BlocBuilder<NowPlayingBloc, NowPlayingState>(
                   builder: (context, state) {
                     if (state is NowPlayingLoading) {
-                      return Center(child: Expanded(child: SizedBox()));
+                      return const Center(child: Expanded(child: SizedBox()));
                     } else if (state is NowPlayingLoaded) {
                       return Padding(
                         padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -90,7 +90,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                     borderRadius: BorderRadius.circular(12.0),
                                     child: Image.network(
                                       item.fullPosterUrl,
-                                      height: height * .2, // Tasvir balandligi
+                                      height: height * .1, // Tasvir balandligi
                                       width: width * .3, // Tasvir kengligi
                                       fit: BoxFit.cover,
                                     ),
@@ -112,7 +112,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                     child: BlocBuilder<UpcomingBloc, UpcomingState>(
                       builder: (context, state) {
                         if (state is UpcomingLoading) {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         } else if (state is UpcomingLoaded) {
                           int itemCount = state.nowPlaying.results.length;
                           return GridView.builder(
@@ -144,7 +144,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                 BlocBuilder<TopRatedBloc, TopRatedState>(
                   builder: (context, state) {
                     if (state is TopRatedLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else if (state is TopRatedLoaded) {
                       return Padding(
                         padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -185,7 +185,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                 BlocBuilder<PopularBloc, PopularState>(
                   builder: (context, state) {
                     if (state is PopularLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else if (state is PopularLoaded) {
                       return Padding(
                         padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -206,8 +206,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                     borderRadius: BorderRadius.circular(12.0),
                                     child: Image.network(
                                       item.fullPosterUrl,
-                                      height: height * .2, // Tasvir balandligi
-                                      width: width * .3, // Tasvir kengligi
+                                      height: height * .2,
+                                      width: width * .3,
                                       fit: BoxFit.cover,
                                     ),
                                   ),

@@ -20,15 +20,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             GoRouter.of(context).go(Routes.home);
           },
-          icon: Icon(Icons.arrow_back_ios_rounded),
+          icon: const Icon(Icons.arrow_back_ios_rounded),
           color: Colors.white),
-      title: Text(title, style: TextStyle(color: Colors.white)),
+      title: Text(title, style: const TextStyle(color: Colors.white)),
       centerTitle: true,
       actions: [IconButton(onPressed: onTap, icon: icon)],
     );
   }
 
-  @override
   @override
   Size get preferredSize => Size.fromHeight(height);
 }

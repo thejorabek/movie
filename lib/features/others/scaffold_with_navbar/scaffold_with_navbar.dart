@@ -24,7 +24,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
             body: navigationShell,
             bottomNavigationBar: Container(
               height: MediaQuery.sizeOf(context).height*.08,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                       top: BorderSide(
                           color: MyColors.activeIconColor, // Change this to your desired color

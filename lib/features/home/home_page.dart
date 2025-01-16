@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movie/constants/colors.dart';
-import 'package:movie/features/home/widgets/movie_number.dart';
 import 'package:movie/features/home/widgets/search_bar.dart';
 import 'package:movie/features/home/widgets/tabbar_view.dart';
 import 'package:movie/features/home/widgets/top_rated.dart';
-import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_bloc.dart';
-import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_event.dart';
-import 'package:movie/router/app_routes.dart';
-import 'package:movie/services/top_rated/bloc/top_rated_bloc.dart';
-import 'package:movie/services/top_rated/bloc/top_rated_event.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -59,7 +50,6 @@ final List<Map<String, String>> movies = [
     "image":
         "https://resizing.flixster.com/05F90XUPmyteSngOV7qj5Zd5HfI=/206x305/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p24429_p_v12_bf.jpg", // Tasvir URL'ini almashtiring
   },
-  // Qo'shimcha filmlar
 ];
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
@@ -94,7 +84,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         children: [
           const SearchBarWidget(),
           SizedBox(height: MediaQuery.sizeOf(context).height * .03),
-          TopRated(),
+          const TopRated(),
           SizedBox(height: height * .02),
           TabBarWidget(width: width, height: height, tabController: tabController)
         ],

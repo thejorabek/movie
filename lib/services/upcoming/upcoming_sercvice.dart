@@ -1,5 +1,5 @@
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
-import 'package:movie/core/models/now_playing.dart';
 import 'package:movie/core/models/top_rated.dart';
 
 class UpcomingService {

@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/constants/colors.dart';
-import 'package:movie/features/home/home_page.dart';
 import 'package:movie/features/home/widgets/movie_number.dart';
-import 'package:movie/router/app_routes.dart';
-import 'package:movie/services/detail/bloc/detail_bloc.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_bloc.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_event.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_state.dart';
 
 class TopRated extends StatefulWidget {
-  TopRated({super.key});
+  const TopRated({super.key});
 
   @override
   State<TopRated> createState() => _TopRatedState();
@@ -26,22 +23,19 @@ class _TopRatedState extends State<TopRated> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
-    double height = MediaQuery.sizeOf(context).height;
 
     return BlocBuilder<TopRatedBloc, TopRatedState>(
       builder: (context, state) {
         if (state is TopRatedLoading) {
-          return Center(child: SizedBox(height: 200));
+          return const Center(child: SizedBox(height: 200));
         } else if (state is TopRatedLoaded) {
-          return Container(
+          return SizedBox(
             height: 250, // Bo'yi
             child: ListView.builder(
               scrollDirection: Axis.horizontal, // Gorizontal skroll qilish
               itemCount: state.topRated.results.length,
               itemBuilder: (context, index) {
                 int num = index;
-                final item = state.topRated.results[index];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
@@ -75,7 +69,7 @@ class _TopRatedState extends State<TopRated> {
                               children: [
                                 CustomPaint(
                                   painter: NumberPainter(stroke: true, num: num + 1), // Ko'k hoshiyali qatlam
-                                  child: Text(
+                                  child: const Text(
                                     '',
                                     style: TextStyle(
                                       color: MyColors.inactiveIconColor, // Bu qatlamda matnni ko'rinmas qilamiz
@@ -85,7 +79,7 @@ class _TopRatedState extends State<TopRated> {
                                 ),
                                 CustomPaint(
                                   painter: NumberPainter(stroke: false, num: num + 1), // Kulrang to'ldirilgan qatlam
-                                  child: Text(
+                                  child: const Text(
                                     '',
                                     style: TextStyle(
                                       color: MyColors.backgroundColor, // Bu qatlamda matnni ko'rinmas qilamiz

@@ -125,6 +125,7 @@ class Result {
   String get fullPosterUrl => 'https://image.tmdb.org/t/p/w500$posterPath';
 }
 
+// ignore: constant_identifier_names
 enum OriginalLanguage { CN, EN, HI }
 
 final originalLanguageValues = EnumValues({"cn": OriginalLanguage.CN, "en": OriginalLanguage.EN, "hi": OriginalLanguage.HI});

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie/core/models/now_playing.dart';
 import 'package:movie/core/models/top_rated.dart';
 
 abstract class UpcomingState extends Equatable {

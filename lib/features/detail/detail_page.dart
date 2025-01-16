@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/constants/icons_constants.dart';
 import 'package:movie/core/widgets/appbar/custom_appbar.dart';
@@ -12,7 +9,6 @@ import 'package:movie/core/widgets/infos/rate_widget.dart';
 import 'package:movie/core/widgets/infos/ticket_widget.dart';
 import 'package:movie/core/widgets/infos/year_widget.dart';
 import 'package:movie/features/detail/widgets/glass_container.dart';
-import 'package:movie/router/app_routes.dart';
 import 'package:movie/services/detail/bloc/detail_bloc.dart';
 import 'package:movie/services/detail/bloc/detail_event.dart';
 import 'package:movie/services/detail/bloc/edtail_state.dart';
@@ -64,7 +60,6 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    print(widget.movieId);
     double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
     return BlocProvider(
@@ -74,14 +69,14 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
         child: Scaffold(
             backgroundColor: MyColors.backgroundColor,
             appBar: CustomAppBar(
-              icon: Icon(Icons.bookmark_border_rounded, color: Colors.white),
+              icon: const Icon(Icons.bookmark_border_rounded, color: Colors.white),
               title: 'Details',
               onTap: () {},
             ),
             body: BlocBuilder<MovieBloc, MovieState>(
               builder: (context, state) {
                 if (state is MovieLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (state is MovieLoaded) {
                   return Column(children: [
                     SizedBox(
@@ -91,10 +86,10 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                         children: [
                           Container(
                             height: height * .25,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)), color: Colors.white),
+                            decoration: const BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)), color: Colors.white),
                             child: ClipRRect(
-                                child: Image.network('https://api.themoviedb.org/3/movie/${state.movie.id}/$state.movie.backdropPath ?? ' '}', fit: BoxFit.cover, height: height, width: width),
-                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))),
+                                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+                                child: Image.network('https://api.themoviedb.org/3/movie/${state.movie.id}/$state.movie.backdropPath ?? ' '}', fit: BoxFit.cover, height: height, width: width)),
                           ),
                           Positioned(
                             top: height * .15,
@@ -106,7 +101,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(12.0),
                                     child: Image.network(
-                                      'https://api.themoviedb.org/3/movie/${state.movie.posterPath ?? ''}',
+                                      'https://api.themoviedb.org/3/movie/${state.movie.posterPath}',
                                       height: 200, // Tasvir balandligi
                                       width: 150, // Tasvir kengligi
                                       fit: BoxFit.cover,
@@ -115,7 +110,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                   SizedBox(width: MediaQuery.sizeOf(context).width * .03),
                                   Text(
                                     state.movie.originalTitle,
-                                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                                    style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                                     maxLines: 2,
                                   )
                                 ],
@@ -159,18 +154,16 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                       height: height * .49,
                       child: Column(
                         children: [
-                          Container(
-                            child: TabBar(
-                              labelColor: Colors.white,
-                              indicatorColor: MyColors.secondaryColor,
-                              controller: _tabController,
-                              dividerColor: MyColors.backgroundColor,
-                              tabs: [
-                                Tab(text: 'About Movie'),
-                                Tab(text: 'Reviews'),
-                                Tab(text: 'Cast'),
-                              ],
-                            ),
+                          TabBar(
+                            labelColor: Colors.white,
+                            indicatorColor: MyColors.secondaryColor,
+                            controller: _tabController,
+                            dividerColor: MyColors.backgroundColor,
+                            tabs: const [
+                              Tab(text: 'About Movie'),
+                              Tab(text: 'Reviews'),
+                              Tab(text: 'Cast'),
+                            ],
                           ),
                           Expanded(
                             child: TabBarView(
@@ -180,14 +173,14 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                   padding: const EdgeInsets.all(25),
                                   child: Text(
                                       state.movie.overview,
-                                      style: TextStyle(color: Colors.white)),
+                                      style: const TextStyle(color: Colors.white)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(25),
                                   child: Row(
                                     children: [
                                       Column(
-                                        children: [CircleAvatar(), SizedBox(height: height * .015), Text('6.3', style: TextStyle(color: MyColors.activeIconColor))],
+                                        children: [const CircleAvatar(), SizedBox(height: height * .015), const Text('6.3', style: TextStyle(color: MyColors.activeIconColor))],
                                       ),
                                       SizedBox(width: width * .05),
                                       SizedBox(
@@ -195,7 +188,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Iqbal Shafiq Rozaan', style: TextStyle(color: Colors.white)),
+                                            const Text('Iqbal Shafiq Rozaan', style: TextStyle(color: Colors.white)),
                                             SizedBox(height: height * .01),
                                             const Text(
                                                 'From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government.',
@@ -210,8 +203,8 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                   padding: const EdgeInsets.all(16.0),
                                   child: GridView.builder(
                                     itemCount: castMembers.length,
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2, // Number of items in each row
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
                                       mainAxisSpacing: 16.0,
                                       crossAxisSpacing: 16.0,
                                     ),
@@ -228,10 +221,10 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                            SizedBox(height: 8.0),
+                                            const SizedBox(height: 8.0),
                                             Text(
                                               castMembers[index]['name']!,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold,

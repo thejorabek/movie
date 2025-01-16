@@ -28,8 +28,8 @@ class SearchBarWidget extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.sizeOf(context).width * .05,
               ),
-              Text('Search', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 18)),
-              Spacer(),
+              const Text('Search', style: TextStyle(color: MyColors.inactiveIconColor, fontSize: 18)),
+              const Spacer(),
               SvgPicture.asset(MyIcons.searchIcon, width: 20, height: 20),
                SizedBox(
                 width: MediaQuery.sizeOf(context).width * .05,

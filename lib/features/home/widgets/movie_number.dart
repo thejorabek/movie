@@ -25,7 +25,7 @@ class NumberPainter extends CustomPainter {
     );
 
     textPainter.layout();
-    textPainter.paint(canvas, Offset(0, 0)); // Raqamni chizish
+    textPainter.paint(canvas, const Offset(0, 0)); // Raqamni chizish
   }
 
   @override

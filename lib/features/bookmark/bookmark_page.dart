@@ -14,12 +14,11 @@ class BookmarkPage extends StatefulWidget {
 class _BookmarkPageState extends State<BookmarkPage> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       backgroundColor: MyColors.backgroundColor,
       appBar: CustomAppBar(
-          icon: Icon(
+          icon: const Icon(
             Icons.abc,
             color: MyColors.backgroundColor,
           ),
@@ -31,9 +30,9 @@ class _BookmarkPageState extends State<BookmarkPage> {
         children: [
           SvgPicture.asset(MyIcons.box),
           SizedBox(height: height * .02),
-          Text('There Is No Movie Yet', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+          const Text('There Is No Movie Yet', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
           SizedBox(height: height * .02),
-          Text('Find your movie by Type title,\n categories, years, etc ',style: TextStyle(color: Colors.white),textAlign: TextAlign.center)
+          const Text('Find your movie by Type title,\n categories, years, etc ',style: TextStyle(color: Colors.white),textAlign: TextAlign.center)
         ],
       )),
     );

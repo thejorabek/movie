@@ -36,15 +36,15 @@ class GlobalSearch extends StatelessWidget {
                   height: height,
                   child: TextFormField(
                     cursorColor: MyColors.inactiveIconColor,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: height * .01),
                       hintText: 'Search',
-                      hintStyle: TextStyle(color: MyColors.inactiveIconColor), // Matches the hint text color in the image
+                      hintStyle: const TextStyle(color: MyColors.inactiveIconColor), // Matches the hint text color in the image
                       border: InputBorder.none, // Removes the underline border
                     ),
                   )),
-              Spacer(),
+              const Spacer(),
               SvgPicture.asset(MyIcons.searchIcon, width: 20, height: 20),
               SizedBox(
                 width: MediaQuery.sizeOf(context).width * .05,
