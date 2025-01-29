@@ -26,7 +26,8 @@ class DetailPage extends StatefulWidget {
 final List<Map<String, String>> castMembers = [
   {
     'name': 'Tom Holland',
-    'imageUrl': 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQxjGyv75mIabHjZS8sAsiOQn0YGeaVkIZyM1BR6l63VH9e7C_W', // Replace with actual image URL
+    'imageUrl':
+        'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQxjGyv75mIabHjZS8sAsiOQn0YGeaVkIZyM1BR6l63VH9e7C_W', // Replace with actual image URL
   },
   {
     'name': 'Zendaya',
@@ -38,7 +39,8 @@ final List<Map<String, String>> castMembers = [
   },
   {
     'name': 'Brad Pitt',
-    'imageUrl': 'https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTRFb9sqd8L-IvF6Uj6dxnnKOuuhfRlF2aArnDkQyudZP4ZjKBfETwCXMntRj0YOuXqQ1oB4K3971hMqAc',
+    'imageUrl':
+        'https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTRFb9sqd8L-IvF6Uj6dxnnKOuuhfRlF2aArnDkQyudZP4ZjKBfETwCXMntRj0YOuXqQ1oB4K3971hMqAc',
   },
   // Add more cast members if needed
 ];
@@ -81,15 +83,18 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                   return Column(children: [
                     SizedBox(
                       width: width,
-                      height: height * .39,
+                      height: height * .35,
                       child: Stack(
                         children: [
                           Container(
                             height: height * .25,
-                            decoration: const BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)), color: Colors.white),
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+                                color: Colors.white),
                             child: ClipRRect(
                                 borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
-                                child: Image.network('https://api.themoviedb.org/3/movie/${state.movie.id}/$state.movie.backdropPath ?? ' '}', fit: BoxFit.cover, height: height, width: width)),
+                                child: Image.network('https://api.themoviedb.org/3/movie/${state.movie.id}/$state.movie.backdropPath ?? ' '}',
+                                    fit: BoxFit.cover, height: height, width: width)),
                           ),
                           Positioned(
                             top: height * .15,
@@ -101,7 +106,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(12.0),
                                     child: Image.network(
-                                      'https://api.themoviedb.org/3/movie/${state.movie.posterPath}',
+                                      'https://api.themoviedb.org/3/movie/${state.movie.backdropPath}',
                                       height: 200, // Tasvir balandligi
                                       width: 150, // Tasvir kengligi
                                       fit: BoxFit.cover,
@@ -117,6 +122,20 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                               ),
                             ),
                           ),
+                          Positioned(
+                              top: height * .16,
+                              left: width * .08,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: Colors.black),
+                                    width: width * .27,
+                                    height: height * .17,
+                                    child: Image.network(state.movie.posterPath),
+                                  ),
+                                  Text(state.movie.title)
+                                ],
+                              )),
                           Positioned(
                             top: height * .2,
                             left: width * .8,
@@ -171,16 +190,18 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(25),
-                                  child: Text(
-                                      state.movie.overview,
-                                      style: const TextStyle(color: Colors.white)),
+                                  child: Text(state.movie.overview, style: const TextStyle(color: Colors.white)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(25),
                                   child: Row(
                                     children: [
                                       Column(
-                                        children: [const CircleAvatar(), SizedBox(height: height * .015), const Text('6.3', style: TextStyle(color: MyColors.activeIconColor))],
+                                        children: [
+                                          const CircleAvatar(),
+                                          SizedBox(height: height * .015),
+                                          const Text('6.3', style: TextStyle(color: MyColors.activeIconColor))
+                                        ],
                                       ),
                                       SizedBox(width: width * .05),
                                       SizedBox(
@@ -244,7 +265,11 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                     ),
                   ]);
                 } else if (state is MovieError) {
-                  return Center(child: Text(state.message,style: const TextStyle(color: Colors.white),));
+                  return Center(
+                      child: Text(
+                    state.message,
+                    style: const TextStyle(color: Colors.white),
+                  ));
                 }
 
                 return Container();

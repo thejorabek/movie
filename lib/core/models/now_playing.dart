@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-NowPlaying nowPlayingFromJson(String str) => NowPlaying.fromJson(json.decode(str));
+NowPlayingModel nowPlayingModelFromJson(String str) => NowPlayingModel.fromJson(json.decode(str));
 
-String nowPlayingToJson(NowPlaying data) => json.encode(data.toJson());
+String nowPlayingModelToJson(NowPlayingModel data) => json.encode(data.toJson());
 
-class NowPlaying {
+class NowPlayingModel {
   Dates dates;
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
-  NowPlaying({
+  NowPlayingModel({
     required this.dates,
     required this.page,
     required this.results,
@@ -19,7 +19,7 @@ class NowPlaying {
     required this.totalResults,
   });
 
-  factory NowPlaying.fromJson(Map<String, dynamic> json) => NowPlaying(
+  factory NowPlayingModel.fromJson(Map<String, dynamic> json) => NowPlayingModel(
         dates: Dates.fromJson(json["dates"]),
         page: json["page"],
         results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
@@ -58,10 +58,10 @@ class Dates {
 
 class Result {
   bool adult;
-  String backdropPath;
+  String? backdropPath;
   List<int> genreIds;
   int id;
-  OriginalLanguage originalLanguage;
+  String originalLanguage;
   String originalTitle;
   String overview;
   double popularity;
@@ -94,7 +94,7 @@ class Result {
         backdropPath: json["backdrop_path"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
-        originalLanguage: originalLanguageValues.map[json["original_language"]]!,
+        originalLanguage: json["original_language"],
         originalTitle: json["original_title"],
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
@@ -111,33 +111,18 @@ class Result {
         "backdrop_path": backdropPath,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
         "id": id,
-        "original_language": originalLanguageValues.reverse[originalLanguage],
+        "original_language": originalLanguage,
         "original_title": originalTitle,
         "overview": overview,
         "popularity": popularity,
         "poster_path": posterPath,
-        "release_date": "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+        "release_date":
+            "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
         "title": title,
         "video": video,
         "vote_average": voteAverage,
         "vote_count": voteCount,
       };
+
   String get fullPosterUrl => 'https://image.tmdb.org/t/p/w500$posterPath';
-}
-
-// ignore: constant_identifier_names
-enum OriginalLanguage { CN, EN, HI }
-
-final originalLanguageValues = EnumValues({"cn": OriginalLanguage.CN, "en": OriginalLanguage.EN, "hi": OriginalLanguage.HI});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

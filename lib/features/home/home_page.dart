@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/features/home/widgets/search_bar.dart';
 import 'package:movie/features/home/widgets/tabbar_view.dart';
-import 'package:movie/features/home/widgets/top_rated.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -22,11 +22,13 @@ final List<Map<String, String>> movies = [
   },
   {
     "title": "Jurassic World Dominion",
-    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
+    "image":
+        "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
   },
   {
     "title": "Jurassic World Dominion",
-    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
+    "image":
+        "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
   },
   {
     "title": "Spider-Man: No Way Home",
@@ -39,7 +41,8 @@ final List<Map<String, String>> movies = [
   },
   {
     "title": "Jurassic World Dominion",
-    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
+    "image":
+        "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/JurassicWorldDominion_Poster.jpeg/220px-JurassicWorldDominion_Poster.jpeg", // Tasvir URL'ini almashtiring
   },
   {
     "title": "Spider-Man: No Way Home",
@@ -71,24 +74,48 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
-    return Scaffold(
-      backgroundColor: MyColors.backgroundColor,
-      appBar: AppBar(
-        title: const Text(
-          ' What do you want to watch?',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        backgroundColor: MyColors.backgroundColor,
-      ),
-      body: Column(
+
+    return NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) {
+        return [
+          SliverAppBar(
+            expandedHeight: height * .2,
+            floating: true,
+            pinned: true,
+            backgroundColor: MyColors.backgroundColor,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Column(
+                children: [
+                  SizedBox(height: height * .08),
+                  const Text(
+                    'What do you want to watch today?',
+                    style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: height * .02),
+                  SearchBarWidget(),
+                ],
+              ),
+            ),
+            bottom: TabBar(
+              controller: tabController,
+              isScrollable: true,
+              labelColor: Colors.white,
+              indicatorColor: MyColors.secondaryColor,
+              dividerColor: MyColors.backgroundColor,
+              tabs: const [
+                Tab(text: 'Now playing'),
+                Tab(text: 'Upcoming'),
+                Tab(text: 'Top rated'),
+                Tab(text: 'Popular'),
+              ],
+            ),
+          ),
+        ];
+      },
+      body: TabBarView(
+        controller: tabController,
         children: [
-          const SearchBarWidget(),
-          SizedBox(height: MediaQuery.sizeOf(context).height * .03),
-          const TopRated(),
-          SizedBox(height: height * .02),
-          SizedBox(
-            height: height * .39,
-            child: TabBarWidget(width: width, height: height, tabController: tabController))
+          TabBarWidget(width: width, height: height, tabController: tabController),
         ],
       ),
     );

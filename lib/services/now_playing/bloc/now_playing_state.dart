@@ -13,7 +13,7 @@ class NowPlayingInitial extends NowPlayingState {}
 class NowPlayingLoading extends NowPlayingState {}
 
 class NowPlayingLoaded extends NowPlayingState {
-  final NowPlaying nowPlaying;
+  final NowPlayingModel nowPlaying;
 
   const NowPlayingLoaded(this.nowPlaying);
 
