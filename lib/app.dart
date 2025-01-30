@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/features/detail/bloc/watchlisted_bloc.dart';
 import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_bloc.dart';
 import 'package:movie/router/app_routes.dart';
 import 'package:movie/services/detail/bloc/detail_bloc.dart';
@@ -35,6 +36,9 @@ class App extends StatelessWidget {
             create: (context) => PopularBloc(apiService: PopularService()),
           ),
           BlocProvider(create: (context) => MovieBloc(movieService: MovieService())),
+          BlocProvider(
+            create: (context) => MovieListBloc(),
+          ),
         ],
         child: MaterialApp.router(
           theme: ThemeData(

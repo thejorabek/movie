@@ -6,8 +6,6 @@ class UpcomingService {
   final String baseUrl = 'https://api.themoviedb.org/3/movie'; // Replace with actual API URL
   final String apiKey = '46f67d100a844a5a01bcbbe10ec06129'; // Replace with your API key
 
-  // https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&api_key=46f67d100a844a5a01bcbbe10ec06129
-
   Future<UpcomingMovie> getUpcoming({int page = 1}) async {
     final response = await http.get(
       Uri.parse('$baseUrl/upcoming?language=en-US&page=1?api_key=$apiKey'),

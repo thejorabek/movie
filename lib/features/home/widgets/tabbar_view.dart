@@ -86,7 +86,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(12.0),
                                         child: Image.network(
-                                          item.fullPosterUrl ?? '',
+                                          item.fullPosterUrl,
                                           fit: BoxFit.cover,
                                           width: double.infinity,
                                           errorBuilder: (context, error, stackTrace) {
@@ -151,7 +151,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(12.0),
                                         child: Image.network(
-                                          item.fullPosterUrl ?? '',
+                                          item.fullPosterUrl,
                                           fit: BoxFit.cover,
                                           width: double.infinity,
                                           errorBuilder: (context, error, stackTrace) {
@@ -214,7 +214,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(12.0),
                                         child: Image.network(
-                                          item.fullPosterUrl ?? '',
+                                          item.fullPosterUrl,
                                           fit: BoxFit.cover,
                                           width: double.infinity,
                                           errorBuilder: (context, error, stackTrace) {
@@ -273,7 +273,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(12.0),
                                         child: Image.network(
-                                          item.fullPosterUrl ?? '',
+                                          item.fullPosterUrl,
                                           fit: BoxFit.cover,
                                           width: double.infinity,
                                           errorBuilder: (context, error, stackTrace) {
