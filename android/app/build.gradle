@@ -11,6 +11,8 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
+        // Flag to enable support for Java 8 features
+        coreLibraryDesugaringEnabled true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -41,4 +43,10 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Add core library desugaring dependency
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+    // ...existing code...
 }

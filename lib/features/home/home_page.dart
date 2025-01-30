@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/features/home/widgets/search_bar.dart';
 import 'package:movie/features/home/widgets/tabbar_view.dart';
+import 'package:movie/features/home/widgets/top_rated.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       headerSliverBuilder: (context, innerBoxIsScrolled) {
         return [
           SliverAppBar(
-            expandedHeight: height * .2,
+            expandedHeight: height * .45,
             floating: true,
             pinned: true,
             backgroundColor: MyColors.backgroundColor,
@@ -92,13 +93,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: height * .02),
-                  SearchBarWidget(),
+                  const SearchBarWidget(),
+                  SizedBox(height: height * .02),
+                  const TopRated()
                 ],
               ),
             ),
             bottom: TabBar(
               controller: tabController,
-              isScrollable: true,
+              isScrollable: false,
               labelColor: Colors.white,
               indicatorColor: MyColors.secondaryColor,
               dividerColor: MyColors.backgroundColor,

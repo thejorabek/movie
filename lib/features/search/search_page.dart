@@ -59,7 +59,7 @@ class _SearchPageState extends State<SearchPage> {
                               overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(height: height*.02),
-                            RateWidget(rate: 3.4,),
+                            RateWidget(rate: '3.4',),
                             SizedBox(height: height*.01),
                             TicketWidget(ticket: 'Ticket',),
                             SizedBox(height: height*.01),

@@ -6,16 +6,17 @@ import 'package:movie/constants/icons_constants.dart';
 // ignore: must_be_immutable
 class RateWidget extends StatelessWidget {
   RateWidget({super.key, required this.rate});
-  double rate;
+  String rate;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     return Row(
       children: [
+        SizedBox(width: width * .015),
         SvgPicture.asset(MyIcons.star),
         SizedBox(width: width * .01),
         Text(
-          '$rate',
+          rate,
           style: const TextStyle(color: MyColors.starColor),
         )
       ],

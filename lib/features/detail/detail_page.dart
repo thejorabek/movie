@@ -93,8 +93,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                 color: Colors.white),
                             child: ClipRRect(
                                 borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
-                                child: Image.network('https://api.themoviedb.org/3/movie/${state.movie.id}/$state.movie.backdropPath ?? ' '}',
-                                    fit: BoxFit.cover, height: height, width: width)),
+                                child: Image.network('${state.movie.fullBackdropUrl} ?? ' '}', fit: BoxFit.cover, height: height, width: width)),
                           ),
                           Positioned(
                             top: height * .15,
@@ -105,11 +104,11 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(12.0),
-                                    child: Image.network(
-                                      'https://api.themoviedb.org/3/movie/${state.movie.backdropPath}',
-                                      height: 200, // Tasvir balandligi
-                                      width: 150, // Tasvir kengligi
-                                      fit: BoxFit.cover,
+                                    child: Container(
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: Colors.black),
+                                      width: width * .25,
+                                      height: height * .17,
+                                      child: Image.network('${state.movie.fullPosterUrl} ?? ' ''),
                                     ),
                                   ),
                                   SizedBox(width: MediaQuery.sizeOf(context).width * .03),
@@ -117,25 +116,12 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                     state.movie.originalTitle,
                                     style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                                     maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   )
                                 ],
                               ),
                             ),
                           ),
-                          Positioned(
-                              top: height * .16,
-                              left: width * .08,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: Colors.black),
-                                    width: width * .27,
-                                    height: height * .17,
-                                    child: Image.network(state.movie.posterPath),
-                                  ),
-                                  Text(state.movie.title)
-                                ],
-                              )),
                           Positioned(
                             top: height * .2,
                             left: width * .8,
@@ -144,7 +130,7 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
                               width: width * .13,
                               height: height * .03,
-                              child: RateWidget(rate: state.movie.voteAverage),
+                              child: RateWidget(rate: state.movie.voteAverage.toStringAsFixed(1)),
                             )),
                           )
                         ],

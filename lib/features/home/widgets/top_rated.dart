@@ -44,7 +44,6 @@ class _TopRatedState extends State<TopRated> {
                     },
                     child: Stack(
                       children: [
-                        // Tasvir va nom
                         Column(
                           children: [
                             ClipRRect(

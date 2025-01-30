@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie/core/models/top_rated.dart';
+import 'package:movie/core/models/upcoming.dart';
 
 abstract class UpcomingState extends Equatable {
   const UpcomingState();
@@ -13,12 +13,12 @@ class UpcomingInitial extends UpcomingState {}
 class UpcomingLoading extends UpcomingState {}
 
 class UpcomingLoaded extends UpcomingState {
-  final TopRatedModel nowPlaying;
+  final UpcomingMovie upcomingMovie;
 
-  const UpcomingLoaded(this.nowPlaying);
+  const UpcomingLoaded(this.upcomingMovie);
 
   @override
-  List<Object> get props => [nowPlaying];
+  List<Object> get props => [upcomingMovie];
 }
 
 class UpcomingError extends UpcomingState {

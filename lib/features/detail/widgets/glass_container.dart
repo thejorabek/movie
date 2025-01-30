@@ -21,7 +21,6 @@ class GlassContainer extends StatelessWidget {
               color: Colors.black.withOpacity(0),
             ),
           ),
-          // The glass effect container
           Container(
             decoration: BoxDecoration(
               // ignore: deprecated_member_use

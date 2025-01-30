@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:movie/constants/colors.dart';
-import 'package:movie/features/home/home_page.dart';
+import 'package:movie/router/app_routes.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_bloc.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_event.dart';
 import 'package:movie/services/now_playing/bloc/now_playing_state.dart';
@@ -44,7 +45,6 @@ class _TabBarWidgetState extends State<TabBarWidget> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
-    double height = MediaQuery.sizeOf(context).height;
     return Column(
       children: [
         Expanded(
@@ -54,15 +54,14 @@ class _TabBarWidgetState extends State<TabBarWidget> {
               BlocBuilder<NowPlayingBloc, NowPlayingState>(
                 builder: (context, state) {
                   if (state is NowPlayingLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Container(
+                        color: MyColors.backgroundColor,
+                        child: Center(child: Lottie.asset('assets/lotties/loading.json')));
                   } else if (state is NowPlayingLoaded) {
                     return Container(
                       color: MyColors.backgroundColor,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                          left: width * .02,
-                          right: width * .02
-                        ),
+                        padding: EdgeInsets.only(left: width * .02, right: width * .02),
                         child: GridView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemCount: state.nowPlaying.results.length,
@@ -74,28 +73,33 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                           ),
                           itemBuilder: (context, index) {
                             final item = state.nowPlaying.results[index];
-                            return Container(
-                              padding: const EdgeInsets.all(4),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: Image.network(
-                                        item.fullPosterUrl ?? '',
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return Container(
-                                            color: Colors.grey,
-                                            child: const Icon(Icons.error),
-                                          );
-                                        },
+                            return GestureDetector(
+                              onTap: (){
+                                router.go('/detail/${item.id}');
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        child: Image.network(
+                                          item.fullPosterUrl ?? '',
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Container(
+                                              color: Colors.grey,
+                                              child: const Icon(Icons.error),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -112,23 +116,20 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                   return Container();
                 },
               ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                  child: BlocBuilder<UpcomingBloc, UpcomingState>(
-                    builder: (context, state) {
-                      if (state is UpcomingLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (state is UpcomingLoaded) {
-                        return Container(
+              BlocBuilder<UpcomingBloc, UpcomingState>(
+                builder: (context, state) {
+                  if (state is UpcomingLoading) {
+                    return Container(
+                        color: MyColors.backgroundColor,
+                        child: Center(child: Lottie.asset('assets/lotties/loading.json')));
+                  } else if (state is UpcomingLoaded) {
+                    return Container(
                       color: MyColors.backgroundColor,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                          left: width * .02,
-                          right: width * .02
-                        ),
+                        padding: EdgeInsets.only(left: width * .02, right: width * .02),
                         child: GridView.builder(
                           physics: const BouncingScrollPhysics(),
-                          itemCount: state.nowPlaying.results.length,
+                          itemCount: state.upcomingMovie.results.length,
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             mainAxisSpacing: 8,
@@ -136,53 +137,59 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                             childAspectRatio: 0.6,
                           ),
                           itemBuilder: (context, index) {
-                            final item = state.nowPlaying.results[index];
-                            return Container(
-                              padding: const EdgeInsets.all(4),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: Image.network(
-                                        item.fullPosterUrl ?? '',
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return Container(
-                                            color: Colors.grey,
-                                            child: const Icon(Icons.error),
-                                          );
-                                        },
+                            final item = state.upcomingMovie.results[index];
+                            return GestureDetector(
+                              onTap: (){
+                                router.go('/detail/${item.id}');
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        child: Image.network(
+                                          item.fullPosterUrl ?? '',
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Container(
+                                              color: Colors.grey,
+                                              child: const Icon(Icons.error),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           },
                         ),
                       ),
                     );
-                      }
-                      return Container();
-                    },
-                  )),
+                  } else if (state is UpcomingError) {
+                    return Center(
+                        child: Text(
+                      state.message,
+                      style: const TextStyle(color: Colors.white),
+                    ));
+                  }
+                  return Container();
+                },
+              ),
               BlocBuilder<TopRatedBloc, TopRatedState>(
                 builder: (context, state) {
                   if (state is TopRatedLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is TopRatedLoaded) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                      child: Container(
+                    return Container(
                       color: MyColors.backgroundColor,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                          left: width * .02,
-                          right: width * .02
-                        ),
+                        padding: EdgeInsets.only(left: width * .02, right: width * .02),
                         child: GridView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemCount: state.topRated.results.length,
@@ -194,34 +201,38 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                           ),
                           itemBuilder: (context, index) {
                             final item = state.topRated.results[index];
-                            return Container(
-                              padding: const EdgeInsets.all(4),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: Image.network(
-                                        item.fullPosterUrl ?? '',
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return Container(
-                                            color: Colors.grey,
-                                            child: const Icon(Icons.error),
-                                          );
-                                        },
+                            return GestureDetector(
+                              onTap: (){
+                                router.go('/detail/${item.id}');
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        child: Image.network(
+                                          item.fullPosterUrl ?? '',
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Container(
+                                              color: Colors.grey,
+                                              child: const Icon(Icons.error),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           },
                         ),
                       ),
-                    ),
                     );
                   } else if (state is TopRatedError) {
                     return Center(child: Text(state.message));
@@ -234,15 +245,10 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                   if (state is PopularLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is PopularLoaded) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                      child: Container(
+                    return Container(
                       color: MyColors.backgroundColor,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                          left: width * .02,
-                          right: width * .02
-                        ),
+                        padding: EdgeInsets.only(left: width * .02, right: width * .02),
                         child: GridView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemCount: state.popular.results.length,
@@ -254,34 +260,38 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                           ),
                           itemBuilder: (context, index) {
                             final item = state.popular.results[index];
-                            return Container(
-                              padding: const EdgeInsets.all(4),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: Image.network(
-                                        item.fullPosterUrl ?? '',
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return Container(
-                                            color: Colors.grey,
-                                            child: const Icon(Icons.error),
-                                          );
-                                        },
+                            return GestureDetector(
+                              onTap: (){
+                                router.go('/detail/${item.id}');
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        child: Image.network(
+                                          item.fullPosterUrl ?? '',
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Container(
+                                              color: Colors.grey,
+                                              child: const Icon(Icons.error),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           },
                         ),
                       ),
-                    ),
                     );
                   } else if (state is PopularError) {
                     return Center(child: Text(state.props.toString()));
