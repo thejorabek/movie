@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: MyColors.backgroundColor,
       leading: IconButton(
           onPressed: () {
-            GoRouter.of(context).pop();
+            GoRouter.of(context).go('/home');
           },
           icon: const Icon(Icons.arrow_back_ios_rounded),
           color: Colors.white),

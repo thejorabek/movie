@@ -35,6 +35,7 @@ class GlobalSearch extends StatelessWidget {
                   width: width * .7,
                   height: height,
                   child: TextFormField(
+                    autofocus: true,
                     cursorColor: MyColors.inactiveIconColor,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(

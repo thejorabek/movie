@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie/constants/colors.dart';
 import 'package:movie/constants/icons_constants.dart';
 import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_bloc.dart';
@@ -17,6 +18,7 @@ class SearchBarWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           context.read<NavigationBloc>().add(UpdateNavigationIndex(1));
+          context.go('/search');
         },
         child: Container(
           width: MediaQuery.sizeOf(context).width * .9,
