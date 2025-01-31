@@ -5,6 +5,7 @@ import 'package:movie/constants/colors.dart';
 import 'package:movie/constants/icons_constants.dart';
 import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_bloc.dart';
 import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_event.dart';
+import 'package:movie/services/search/bloc/search_bloc.dart';
 
 class GlobalSearch extends StatelessWidget {
   const GlobalSearch({
@@ -44,6 +45,9 @@ class GlobalSearch extends StatelessWidget {
                       hintStyle: const TextStyle(color: MyColors.inactiveIconColor), // Matches the hint text color in the image
                       border: InputBorder.none, // Removes the underline border
                     ),
+                    onChanged: (query) {
+                      context.read<SearchBloc>().add(SearchQueryChanged(query));
+                    },
                   )),
               const Spacer(),
               SvgPicture.asset(MyIcons.searchIcon, width: 20, height: 20),
