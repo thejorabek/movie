@@ -7,7 +7,7 @@ import 'package:movie/features/bookmark/bookmark_page.dart';
 import 'package:movie/features/detail/detail_page.dart';
 import 'package:movie/features/home/home_page.dart';
 import 'package:movie/features/others/scaffold_with_navbar/scaffold_with_navbar.dart';
-import 'package:movie/features/search/search_page.dart';
+import 'package:movie/features/search/presentation/search_page.dart';
 
 part "name_routes.dart";
 

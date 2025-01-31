@@ -15,7 +15,7 @@ import 'package:movie/features/detail/bloc/watchlisted_state.dart';
 import 'package:movie/features/detail/widgets/glass_container.dart';
 import 'package:movie/services/detail/bloc/detail_bloc.dart';
 import 'package:movie/services/detail/bloc/detail_event.dart';
-import 'package:movie/services/detail/bloc/detail_state.dart';
+import 'package:movie/services/detail/bloc/edtail_state.dart';
 import 'package:movie/services/detail/detail_service.dart';
 
 class DetailPage extends StatefulWidget {

@@ -1,8 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/features/detail/bloc/watchlisted_bloc.dart';
 import 'package:movie/features/others/scaffold_with_navbar/bloc/navigation_bloc.dart';
-import 'package:movie/features/search/search_page.dart';
 import 'package:movie/router/app_routes.dart';
 import 'package:movie/services/detail/bloc/detail_bloc.dart';
 import 'package:movie/services/detail/detail_service.dart';
@@ -11,6 +11,7 @@ import 'package:movie/services/now_playing/now_playing_service.dart';
 import 'package:movie/services/popular/bloc/popular_bloc.dart';
 import 'package:movie/services/popular/popular_service.dart';
 import 'package:movie/services/search/bloc/search_bloc.dart';
+import 'package:movie/services/search/search_service.dart';
 import 'package:movie/services/top_rated/bloc/top_rated_bloc.dart';
 import 'package:movie/services/top_rated/top_rated_service.dart';
 import 'package:movie/services/upcoming/bloc/upcoming_bloc.dart';
@@ -41,7 +42,7 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => MovieListBloc(),
           ),
-          BlocProvider(create: (context) => SearchBloc())
+          BlocProvider(create: (context) => SearchBloc(searchService: SearchService(dio: Dio())))
         ],
         child: MaterialApp.router(
           theme: ThemeData(
