@@ -46,7 +46,7 @@ class App extends StatelessWidget {
         ],
         child: MaterialApp.router(
           theme: ThemeData(
-            fontFamily: 'Montserrat', // Set the primary color for the app
+            fontFamily: 'Montserrat',
           ),
           debugShowCheckedModeBanner: false,
           routerConfig: router,

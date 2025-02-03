@@ -23,7 +23,6 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
     return BlocProvider(
       create: (context) => SearchBloc(searchService: SearchService(dio: Dio())),
@@ -67,7 +66,7 @@ class _SearchPageState extends State<SearchPage> {
                                       bottomLeft: Radius.circular(12),
                                     ),
                                     child: Image.network(
-                                      movie.fullBackdropUrl ?? '',
+                                      movie.fullBackdropUrl,
                                       height: double.infinity,
                                       width: 120,
                                       fit: BoxFit.cover,
@@ -95,10 +94,10 @@ class _SearchPageState extends State<SearchPage> {
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                          const SizedBox(height: 8),
-                                          Text(movie.genreIds[0].toString()),
+                                          const SizedBox(height: 10),
+                                          Text(movie.genreIds[0].toString(),style: TextStyle(color: Colors.white),),
                                           const SizedBox(height: 4),
-                                          RateWidget(rate: movie.voteAverage.toStringAsFixed(1).toString() ?? '0.0'),
+                                          RateWidget(rate: movie.voteAverage.toStringAsFixed(1).toString()),
                                           const SizedBox(height: 4),
                                           if (movie.releaseDate != null)
                                             YearWidget(
