@@ -146,11 +146,14 @@ class _DetailPageState extends State<DetailPage> with SingleTickerProviderStateM
                                   ),
                                 ),
                                 SizedBox(width: MediaQuery.sizeOf(context).width * .03),
-                                Text(
-                                  state.movie.originalTitle,
-                                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                SizedBox(
+                                  width: width*.6,
+                                  child: Text(
+                                    state.movie.originalTitle,
+                                    style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 )
                               ],
                             ),

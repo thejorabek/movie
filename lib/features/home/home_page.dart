@@ -95,7 +95,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   SizedBox(height: height * .02),
                   const SearchBarWidget(),
                   SizedBox(height: height * .02),
-                  const TopRated()
+                  const TopRated(),
+                  SizedBox(height: height * .02),
                 ],
               ),
             ),
