@@ -13,7 +13,7 @@ class UpcomingInitial extends UpcomingState {}
 class UpcomingLoading extends UpcomingState {}
 
 class UpcomingLoaded extends UpcomingState {
-  final UpcomingMovie upcomingMovie;
+  final UpcomingModel upcomingMovie;
 
   const UpcomingLoaded(this.upcomingMovie);
 

@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-UpcomingMovie upcomingMovieFromJson(String str) => UpcomingMovie.fromJson(json.decode(str));
+UpcomingModel upcomingModelFromJson(String str) => UpcomingModel.fromJson(json.decode(str));
 
-String upcomingMovieToJson(UpcomingMovie data) => json.encode(data.toJson());
+String upcomingModelToJson(UpcomingModel data) => json.encode(data.toJson());
 
-class UpcomingMovie {
+class UpcomingModel {
     Dates dates;
     int page;
     List<Result> results;
     int totalPages;
     int totalResults;
 
-    UpcomingMovie({
+    UpcomingModel({
         required this.dates,
         required this.page,
         required this.results,
@@ -19,7 +19,7 @@ class UpcomingMovie {
         required this.totalResults,
     });
 
-    factory UpcomingMovie.fromJson(Map<String, dynamic> json) => UpcomingMovie(
+    factory UpcomingModel.fromJson(Map<String, dynamic> json) => UpcomingModel(
         dates: Dates.fromJson(json["dates"]),
         page: json["page"],
         results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
@@ -129,15 +129,15 @@ class Result {
 enum OriginalLanguage {
     EN,
     FR,
-    ID,
-    LV
+    LV,
+    ZH
 }
 
 final originalLanguageValues = EnumValues({
     "en": OriginalLanguage.EN,
     "fr": OriginalLanguage.FR,
-    "id": OriginalLanguage.ID,
-    "lv": OriginalLanguage.LV
+    "lv": OriginalLanguage.LV,
+    "zh": OriginalLanguage.ZH
 });
 
 class EnumValues<T> {
